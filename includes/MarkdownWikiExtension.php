@@ -13,107 +13,101 @@
  */
 
 class MarkdownWikiExtension {
-	/**
-	 * Adds custom styopes to highlight generated text
-	 *
-	 * @param OutputPage &$out
-	 * @return bool
-	 */
-	public static function onBeforePageDisplay( OutputPage &$out ) {
-		global $wgMarkdownHighlight, $wgMarkdownHighlightJs, $wgMarkdownHighlightCss;
+    /**
+     * Adds custom styopes to highlight generated text
+     *
+     * @param OutputPage &$out
+     * @return bool
+     */
+    public static function onBeforePageDisplay( OutputPage &$out ) {
+        global $wgMarkdownHighlight, $wgMarkdownHighlightJs, $wgMarkdownHighlightCss;
 
-		if ( $wgMarkdownHighlight ) {
-			$out->addScriptFile( $wgMarkdownHighlightJs );
-			$out->addStyle( $wgMarkdownHighlightCss );
-			$out->addInlineScript( 'hljs.initHighlightingOnLoad();' );
-		}
-
-		return true;
-	}
-
-	/**
-	 * If everything checks out, this hook will parse the given text for Markdown.
-	 *
-	 * @param Parser $parser MediaWiki's parser
-	 * @param string &$text The text to parse
-	 * @return bool
-	 */
-	public static function onParserBeforeInternalParse( $parser, &$text ) {
-		global $wgMarkdownDefaultOn;
-
-		if ( static::shouldParseText( $text ) ) {
-			if ( !$wgMarkdownDefaultOn ) {
-				$text = substr( $text, strlen( static::getSearchString() ) );
-			}
-
-			$text = static::parseMarkdown( $parser, $text );
-
-			return false;
-		}
-
-		if ( $wgMarkdownDefaultOn ) {
-			$text = substr( $text, strlen( static::getSearchString() ) );
-		}
-
-		return true;
-	}
-
-        /**
-         * Converts the given text into markdown.
-         *
-         * @param Parser $parser MediaWiki's parser
-         * @param string $text The text to parse
-         * @return string The parsed text
-         */
-        protected static function parseMarkdown( $parser, $text ) {
-			global $wgMarkdownWikiLinks;
-
-			$html = $text;
-
-			$html = static::getParser()->parse( $html );
-
-			$html = $parser->internalParse( $html );
-			return $html;
-		}
-
-        /**
-         * @param string $text The text to check over for our tags if necessary
-         * @return bool Whether to parse the given text
-         */
-        protected static function shouldParseText( $text ) {
-                global $wgMarkdownDefaultOn;
-
-                $search = static::getSearchString();
-
-                return (
-                        ( $wgMarkdownDefaultOn && strpos( $text, $search ) !== 0 )
-                        || ( !$wgMarkdownDefaultOn && strpos( $text, $search ) === 0 )
-                );
+        if ( $wgMarkdownHighlight ) {
+            $out->addScriptFile( $wgMarkdownHighlightJs );
+            $out->addStyle( $wgMarkdownHighlightCss );
+            $out->addInlineScript( 'hljs.initHighlightingOnLoad();' );
         }
 
-        /**
-         * @return string The search string
-         */
-        protected static function getSearchString() {
-                global $wgMarkdownDefaultOn, $wgMarkdownToggleFormat;
+        return true;
+    }
 
-                return sprintf( $wgMarkdownToggleFormat, $wgMarkdownDefaultOn ? 'WIKI' : 'MARKDOWN' );
+    /**
+     * If everything checks out, this hook will parse the given text for Markdown.
+     *
+     * @param Parser $parser MediaWiki's parser
+     * @param string &$text The text to parse
+     * @return bool
+     */
+    public static function onParserBeforeInternalParse( $parser, &$text ) {
+        global $wgMarkdownDefaultOn;
+
+        if ( static::shouldParseText( $text ) ) {
+            if ( !$wgMarkdownDefaultOn ) {
+                $text = substr( $text, strlen( static::getSearchString() ) );
+            }
+
+            $text = static::parseMarkdown( $parser, $text );
+
+            return false;
         }
 
-        /**
-         * @return Parsedown
-         */
-        protected static function getParser() {
-                static $parser;
-                global $wgMarkdownExtra;
-
-                if ( !$parser ) {
-                        $parser = new paveld\markdownwiki\MarkdownWiki();
-//                      $parser = $wgMarkdownExtra
-//                              ? new \cebe\markdown\MarkdownExtra()
-//                              : new \cebe\markdown\Markdown();
-                }
-
-                return $parser;
+        if ( $wgMarkdownDefaultOn ) {
+            $text = substr( $text, strlen( static::getSearchString() ) );
         }
+
+        return true;
+    }
+
+    /**
+     * Converts the given text into markdown.
+     *
+     * @param Parser $parser MediaWiki's parser
+     * @param string $text The text to parse
+     * @return string The parsed text
+     */
+    protected static function parseMarkdown( $parser, $text ) {
+        $html = $text;
+
+        $html = static::getParser()->parse( $html );
+
+        $html = $parser->internalParse( $html );
+        return $html;
+    }
+
+    /**
+     * @param string $text The text to check over for our tags if necessary
+     * @return bool Whether to parse the given text
+     */
+    protected static function shouldParseText( $text ) {
+        global $wgMarkdownDefaultOn;
+
+        $search = static::getSearchString();
+
+        return (
+                ( $wgMarkdownDefaultOn && strpos( $text, $search ) !== 0 )
+                || ( !$wgMarkdownDefaultOn && strpos( $text, $search ) === 0 )
+        );
+    }
+
+    /**
+     * @return string The search string
+     */
+    protected static function getSearchString() {
+        global $wgMarkdownDefaultOn, $wgMarkdownToggleFormat;
+
+        return sprintf( $wgMarkdownToggleFormat, $wgMarkdownDefaultOn ? 'WIKI' : 'MARKDOWN' );
+    }
+
+    /**
+     * @return Parsedown
+     */
+    protected static function getParser() {
+        static $parser;
+
+        if ( !$parser ) {
+            $parser = new paveld\markdownwiki\MarkdownWiki();
+        }
+
+        return $parser;
+    }
 }
