@@ -23,12 +23,6 @@
         "MarkdownToggleFormat": {
             "value": "{{%s}}"
         },
-        "MarkdownWikiLinks": {
-            "value": true
-        },
-        "MarkdownExtra": {
-            "value": false
-        },
         "MarkdownHighlight": {
             "value": false
         },
