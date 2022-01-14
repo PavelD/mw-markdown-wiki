@@ -3,7 +3,7 @@
     "description": "An extension for markdown support in mediawiki pages",
     "keywords": ["markdown", "wiki"],
     "homepage": "https://github.com/PavelD/mw-markdown-wiki#readme",
-    "type": "library",
+    "type": "mediawiki-extension",
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "paveld/markdown-wiki": "*"
+        "paveld/markdown-wiki": "*",
+        "composer/installers": "~1.0"
     },
     "require-dev": {
         "mediawiki/mediawiki-codesniffer": "37.0.0",
