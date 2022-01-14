@@ -1,6 +1,6 @@
 {
     "name": "MarkdownWiki",
-    "version": "0.1",
+    "version": "0.2.2",
     "author": "Pavel Dobes",
     "url": "https://github.com/PavelD/mw-markdown-wik",
     "description": "Uses Markdown for parsing to wiki text",
