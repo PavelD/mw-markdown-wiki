@@ -10,7 +10,7 @@
         "MediaWiki": ">= 1.29.0"
     },
     "AutoloadClasses": {
-        "MarkdownExtension": "includes/MarkdownWikiExtension.php"
+        "MarkdownWikiExtension": "includes/MarkdownWikiExtension.php"
     },
     "Hooks": {
         "ParserBeforeInternalParse": "MarkdownWikiExtension::onParserBeforeInternalParse",
