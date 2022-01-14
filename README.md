@@ -24,7 +24,7 @@ To simplify the extension I extracted [MarkdownWiki](https://github.com/PavelD/m
 - Add the following to `$mw/LocalSettings.php`:
 
 ```php
-wfLoadExtension( 'Markdown' );
+wfLoadExtension( 'MarkdownWiki' );
 ```
 
 Set MarkdwonWiki as default paser add to the file as well following code:
