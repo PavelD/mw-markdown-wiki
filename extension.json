@@ -1,0 +1,44 @@
+{
+    "name": "MarkdownWiki",
+    "version": "0.1",
+    "author": "Pavel Dobes",
+    "url": "https://github.com/PavelD/mw-markdown-wik",
+    "description": "Uses Markdown for parsing to wiki text",
+    "license-name": "MIT",
+    "type": "parserhook",
+    "requires": {
+        "MediaWiki": ">= 1.29.0"
+    },
+    "AutoloadClasses": {
+        "MarkdownExtension": "includes/MarkdownWikiExtension.php"
+    },
+    "Hooks": {
+        "ParserBeforeInternalParse": "MarkdownWikiExtension::onParserBeforeInternalParse",
+        "BeforePageDisplay": "MarkdownWikiExtension::onBeforePageDisplay"
+    },
+    "config": {
+        "MarkdownDefaultOn": {
+            "value": false
+        },
+        "MarkdownToggleFormat": {
+            "value": "{{%s}}"
+        },
+        "MarkdownWikiLinks": {
+            "value": true
+        },
+        "MarkdownExtra": {
+            "value": false
+        },
+        "MarkdownHighlight": {
+            "value": false
+        },
+        "MarkdownHighlightJs": {
+            "value": null
+        },
+        "MarkdownHighlightCss": {
+            "value": null
+        }
+    },
+    "load_composer_autoloader": true,
+    "manifest_version": 2
+}
