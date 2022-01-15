@@ -37,7 +37,7 @@ $wgMarkdownWikiDefaultOn = true;
 
 To alow markdown syntax in the article put `{{MARKDOWN}}` tp the begging of the page.
 
-To use Markdown on every page use `$wgMarkdownDefaultOn` in `$mw/LocalSettings.php`
+To use Markdown on every page use `$wgMarkdownWikiDefaultOn` in `$mw/LocalSettings.php`
 
 ### Custom markdown elements
 
