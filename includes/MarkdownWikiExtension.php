@@ -14,8 +14,8 @@
 
 class MarkdownWikiExtension {
 
-	const PARSE_MARKDOWN = 'MARKDOWN';
-	const PARSE_WIKI = 'WIKI';
+    const PARSE_MARKDOWN = 'MARKDOWN';
+    const PARSE_WIKI = 'WIKI';
 
     /**
      * Adds custom styopes to highlight generated text
@@ -24,10 +24,10 @@ class MarkdownWikiExtension {
      * @return bool
      */
     public static function onBeforePageDisplay( OutputPage &$out ) {
-		global $wgMarkdownHighlight, $wgMarkdownHighlightJs, $wgMarkdownHighlightCss;
+        global $wgMarkdownHighlight, $wgMarkdownHighlightJs, $wgMarkdownHighlightCss;
 
         if ( $wgMarkdownHighlight ) {
-			$out->addScriptFile( $wgMarkdownHighlightJs );
+            $out->addScriptFile( $wgMarkdownHighlightJs );
             $out->addStyle( $wgMarkdownHighlightCss );
             $out->addInlineScript( 'hljs.initHighlightingOnLoad();' );
         }
@@ -43,12 +43,12 @@ class MarkdownWikiExtension {
      * @return bool
      */
     public static function onParserBeforeInternalParse( $parser, &$text ) {
-		if ( static::shouldParseText( $text ) ) {
-			$text = static::stripMagicWorlds($text);
-			$text = static::parseMarkdown( $parser, $text );
-		} else {
-			$text = static::stripMagicWorlds($text);
-		}
+        if ( static::shouldParseText( $text ) ) {
+            $text = static::stripMagicWorlds($text);
+            $text = static::parseMarkdown( $parser, $text );
+        } else {
+            $text = static::stripMagicWorlds($text);
+        }
         return true;
     }
 
@@ -87,23 +87,23 @@ class MarkdownWikiExtension {
         return sprintf( $wgMarkdownToggleFormat, $wgMarkdownDefaultOn ? self::PARSE_WIKI : self::PARSE_MARKDOWN );
     }
 
-	/**
-	 * @param string $text The text remove our tags if necessary
+    /**
+     * @param string $text The text remove our tags if necessary
      * @return string stripped text
-	 **/
+     **/
     protected static function stripMagicWorlds( $text ) {
-		global $wgMarkdownToggleFormat;
+        global $wgMarkdownToggleFormat;
 
-		$markdownTag = sprintf( $wgMarkdownToggleFormat, self::PARSE_MARKDOWN );
-		$wikiTag = sprintf( $wgMarkdownToggleFormat, self::PARSE_WIKI );
+        $markdownTag = sprintf( $wgMarkdownToggleFormat, self::PARSE_MARKDOWN );
+        $wikiTag = sprintf( $wgMarkdownToggleFormat, self::PARSE_WIKI );
 
-		if(substr($text, 0, strlen($markdownTag)) === $markdownTag) {
-			return substr($text,strlen($markdownTag));
-		}
-		if(substr($text, 0, strlen($wikiTag)) === $wikiTag) {
-			return substr($text,strlen($wikiTag));
-		}
-		return $text;
+        if(substr($text, 0, strlen($markdownTag)) === $markdownTag) {
+            return substr($text,strlen($markdownTag));
+        }
+        if(substr($text, 0, strlen($wikiTag)) === $wikiTag) {
+            return substr($text,strlen($wikiTag));
+        }
+        return $text;
     }
 
     /**
