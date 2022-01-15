@@ -30,7 +30,7 @@ wfLoadExtension( 'MarkdownWiki' );
 Set MarkdwonWiki as default paser add to the file as well following code:
 
 ```php
-$wgMarkdownDefaultOn = true;
+$wgMarkdownWikiDefaultOn = true;
 ```
 
 ## Usage
