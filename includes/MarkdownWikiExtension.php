@@ -44,10 +44,10 @@ class MarkdownWikiExtension {
      */
     public static function onParserBeforeInternalParse( $parser, &$text ) {
         if ( static::shouldParseText( $text ) ) {
-            $text = static::stripMagicWorlds($text);
-            $text = static::parseMarkdown( $parser, $text );
+            $text = static::stripMagicWorlds( $text );
+            $text = static::parseMarkdown( $text );
         } else {
-            $text = static::stripMagicWorlds($text);
+            $text = static::stripMagicWorlds( $text );
         }
         return true;
     }
@@ -55,11 +55,10 @@ class MarkdownWikiExtension {
     /**
      * Converts the given text into markdown.
      *
-     * @param Parser $parser MediaWiki's parser
      * @param string $text The text to parse
      * @return string The parsed text
      */
-    protected static function parseMarkdown( $parser, $text ) {
+    protected static function parseMarkdown( $text ) {
         return static::getParser()->parse( $text );
     }
 
@@ -97,11 +96,11 @@ class MarkdownWikiExtension {
         $markdownTag = sprintf( $wgMarkdownWikiToggleFormat, self::PARSE_MARKDOWN );
         $wikiTag = sprintf( $wgMarkdownWikiToggleFormat, self::PARSE_WIKI );
 
-        if(substr($text, 0, strlen($markdownTag)) === $markdownTag) {
-            return substr($text,strlen($markdownTag));
+        if(substr($text, 0, strlen( $markdownTag )) === $markdownTag) {
+            return substr($text,strlen( $markdownTag ));
         }
-        if(substr($text, 0, strlen($wikiTag)) === $wikiTag) {
-            return substr($text,strlen($wikiTag));
+        if(substr($text, 0, strlen( $wikiTag )) === $wikiTag) {
+            return substr($text,strlen( $wikiTag ));
         }
         return $text;
     }
