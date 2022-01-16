@@ -6,7 +6,7 @@
  * This is a MediaWiki extension that parse markdown syntax to wiktext using extension of cebe's marsedown parser.
  *
  * @author    Pavel Dobes <konference@lnx.cz>
- * @version   0.1.0
+ * @version   0.3.0
  * @copyright Copyright (C) 2022 Pavel Dobes
  * @license   MIT
  * @link      https://github.com/PavelD/mw-markdown-wiki
@@ -24,11 +24,11 @@ class MarkdownWikiExtension {
      * @return bool
      */
     public static function onBeforePageDisplay( OutputPage &$out ) {
-        global $wgMarkdownHighlight, $wgMarkdownHighlightJs, $wgMarkdownHighlightCss;
+        global $wgMarkdownWikiHighlight, $wgMarkdownWikiHighlightJs, $wgMarkdownWikiHighlightCss;
 
-        if ( $wgMarkdownHighlight ) {
-            $out->addScriptFile( $wgMarkdownHighlightJs );
-            $out->addStyle( $wgMarkdownHighlightCss );
+        if ( $wgMarkdownWikiHighlight ) {
+            $out->addScriptFile( $wgMarkdownWikiHighlightJs );
+            $out->addStyle( $wgMarkdownWikiHighlightCss );
             $out->addInlineScript( 'hljs.initHighlightingOnLoad();' );
         }
 
@@ -68,13 +68,13 @@ class MarkdownWikiExtension {
      * @return bool Whether to parse the given text
      */
     protected static function shouldParseText( $text ) {
-        global $wgMarkdownDefaultOn;
+        global $wgMarkdownWikiDefaultOn;
 
         $search = static::getSearchString();
 
         return (
-                ( $wgMarkdownDefaultOn && substr($text, 0, strlen($search)) !== $search )
-                || ( !$wgMarkdownDefaultOn && substr($text, 0, strlen($search)) === $search )
+                ( $wgMarkdownWikiDefaultOn && substr($text, 0, strlen($search)) !== $search )
+                || ( !$wgMarkdownWikiDefaultOn && substr($text, 0, strlen($search)) === $search )
         );
     }
 
@@ -82,9 +82,9 @@ class MarkdownWikiExtension {
      * @return string The search string
      */
     protected static function getSearchString() {
-        global $wgMarkdownDefaultOn, $wgMarkdownToggleFormat;
+        global $wgMarkdownWikiDefaultOn, $wgMarkdownWikiToggleFormat;
 
-        return sprintf( $wgMarkdownToggleFormat, $wgMarkdownDefaultOn ? self::PARSE_WIKI : self::PARSE_MARKDOWN );
+        return sprintf( $wgMarkdownWikiToggleFormat, $wgMarkdownWikiDefaultOn ? self::PARSE_WIKI : self::PARSE_MARKDOWN );
     }
 
     /**
@@ -92,10 +92,10 @@ class MarkdownWikiExtension {
      * @return string stripped text
      **/
     protected static function stripMagicWorlds( $text ) {
-        global $wgMarkdownToggleFormat;
+        global $wgMarkdownWikiToggleFormat;
 
-        $markdownTag = sprintf( $wgMarkdownToggleFormat, self::PARSE_MARKDOWN );
-        $wikiTag = sprintf( $wgMarkdownToggleFormat, self::PARSE_WIKI );
+        $markdownTag = sprintf( $wgMarkdownWikiToggleFormat, self::PARSE_MARKDOWN );
+        $wikiTag = sprintf( $wgMarkdownWikiToggleFormat, self::PARSE_WIKI );
 
         if(substr($text, 0, strlen($markdownTag)) === $markdownTag) {
             return substr($text,strlen($markdownTag));
