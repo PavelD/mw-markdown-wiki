@@ -60,7 +60,7 @@ class MarkdownWikiExtension {
      * @return string The parsed text
      */
     protected static function parseMarkdown( $parser, $text ) {
-        return static::getParser()->parse( $html );
+        return static::getParser()->parse( $text );
     }
 
     /**
