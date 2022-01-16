@@ -1,6 +1,6 @@
 {
     "name": "MarkdownWiki",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "author": "Pavel Dobes",
     "url": "https://github.com/PavelD/mw-markdown-wik",
     "description": "Uses Markdown for parsing to wiki text",
@@ -17,19 +17,19 @@
         "BeforePageDisplay": "MarkdownWikiExtension::onBeforePageDisplay"
     },
     "config": {
-        "MarkdownDefaultOn": {
+        "MarkdownWikiDefaultOn": {
             "value": false
         },
-        "MarkdownToggleFormat": {
+        "MarkdownWikiToggleFormat": {
             "value": "{{%s}}"
         },
-        "MarkdownHighlight": {
+        "MarkdownWikiHighlight": {
             "value": false
         },
-        "MarkdownHighlightJs": {
+        "MarkdownWikiHighlightJs": {
             "value": null
         },
-        "MarkdownHighlightCss": {
+        "MarkdownWikiHighlightCss": {
             "value": null
         }
     },
