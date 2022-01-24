@@ -9,12 +9,11 @@ use paveld\markdownwiki\MarkdownWiki;
  * This is a MediaWiki extension that parse markdown syntax to wiktext using extension of cebe's marsedown parser.
  *
  * @author    Pavel Dobes <konference@lnx.cz>
- * @version   0.3.0
+ * @version   0.3.2
  * @copyright Copyright (C) 2022 Pavel Dobes
  * @license   MIT
  * @link      https://github.com/PavelD/mw-markdown-wiki
  */
-
 class MarkdownWikiExtension
 {
 
@@ -131,6 +130,7 @@ class MarkdownWikiExtension
      */
     public static function renderTagMarkdown($input, array $args, Parser $parser, PPFrame $frame)
     {
-        return self::parseMarkdown($input);
+        $html = self::parseMarkdown($input);
+        return $parser->internalParse($html);
     }
 }
