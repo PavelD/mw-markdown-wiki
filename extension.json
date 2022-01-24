@@ -14,7 +14,7 @@
     },
     "Hooks": {
         "ParserBeforeInternalParse": "MarkdownWikiExtension::onParserBeforeInternalParse",
-        "BeforePageDisplay": "MarkdownWikiExtension::onBeforePageDisplay"
+        "ParserFirstCallInit": "MarkdownWikiExtension::onParserFirstCallInit"
     },
     "config": {
         "MarkdownWikiDefaultOn": {
@@ -22,15 +22,6 @@
         },
         "MarkdownWikiToggleFormat": {
             "value": "{{%s}}"
-        },
-        "MarkdownWikiHighlight": {
-            "value": false
-        },
-        "MarkdownWikiHighlightJs": {
-            "value": null
-        },
-        "MarkdownWikiHighlightCss": {
-            "value": null
         }
     },
     "load_composer_autoloader": true,
